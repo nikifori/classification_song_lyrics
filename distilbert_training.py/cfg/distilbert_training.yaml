@@ -1,0 +1,28 @@
+training_config:
+  exp_folder: ""
+  pre_validate: true  # whether to run an validation phase before training.
+  max_epochs: TODO
+  train_batch_size: 
+  seed: 42
+  strategy: "ddp"
+  precision: 32
+  enable_checkpointing: true
+  num_nodes: 1
+  enable_model_summary: true
+  enable_progress_bar: true
+  accumulate_grad_batches: 1
+  gradient_clip_val: 2
+  log_every_n_steps: 100
+  check_val_every_n_epoch: 1
+  num_sanity_val_steps: 1
+  save_top_k_checkpoints: 101
+  every_n_epochs_model_save: 1
+
+
+dataset_config:
+  ...
+
+model_config:
+  ....
+
+# TODO add exp logger
