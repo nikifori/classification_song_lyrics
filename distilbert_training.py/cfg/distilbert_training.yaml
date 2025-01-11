@@ -1,10 +1,14 @@
 training_config:
-  exp_folder: ""
+  exp_folder: "/home/nikifori/Desktop/Master/NLP/final_project/classification_song_lyrics/exps"
+  # exp_name: "removing_special_characters_bert_base_uncased"
+  exp_name: "testing"
   pre_validate: true  # whether to run an validation phase before training.
-  max_epochs: TODO
-  train_batch_size: 
+  max_epochs: 10
+  # max_epochs: 1
+  train_batch_size: 32
   seed: 42
-  strategy: "ddp"
+  # strategy: "ddp"
+  strategy: "ddp_find_unused_parameters_true"
   precision: 32
   enable_checkpointing: true
   num_nodes: 1
@@ -15,14 +19,33 @@ training_config:
   log_every_n_steps: 100
   check_val_every_n_epoch: 1
   num_sanity_val_steps: 1
-  save_top_k_checkpoints: 101
+  save_top_k_checkpoints: 10
   every_n_epochs_model_save: 1
 
 
 dataset_config:
-  ...
+  csv_path: "/home/nikifori/Desktop/Master/NLP/final_project/classification_song_lyrics/data/song_lyrics_filtered.csv"
+  # csv_path: "/home/nikifori/Desktop/Master/NLP/final_project/classification_song_lyrics/data/song_lyrics_filtered_debugging.csv"
+  random_seed: 42
+  num_workers: 8
+
 
 model_config:
-  ....
+  # transformer_model: "distilbert/distilbert-base-uncased"
+  # transformer_model: "FacebookAI/roberta-base"
+  transformer_model: "google-bert/bert-base-uncased"
+  use_activation_func_before_class_layer: false
+  # TODO from pretrain
 
-# TODO add exp logger
+neptune_config:
+  use_neptune: false
+  project: "kwstasrr/NLP-AUTH"
+  tags:
+    - "google-bert/bert-base-uncased"
+    - "removing_special_characters"
+    - "without using GELU"
+    # - "using non-linearity"
+  capture_stdout: false
+  capture_stderr: false
+  capture_hardware_metrics: false
+  capture_traceback: false

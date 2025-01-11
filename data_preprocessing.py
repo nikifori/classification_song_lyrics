@@ -25,6 +25,7 @@ def set_random_state(seed):
 
 def split_data(data, random_state):
     sampled_data = data.groupby('tag').apply(lambda x: x.sample(n=50000, random_state=random_state)).reset_index(drop=True)
+    # sampled_data = data.groupby('tag').apply(lambda x: x.sample(n=1000, random_state=random_state)).reset_index(drop=True)
     train, temp = train_test_split(sampled_data, test_size=0.3, stratify=sampled_data['tag'], random_state=random_state)
     validation, test = train_test_split(temp, test_size=0.5, stratify=temp['tag'], random_state=random_state)
     return train, validation, test
